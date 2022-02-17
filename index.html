@@ -17,6 +17,9 @@
       <div id="card-container" class="card-container">
         <div id="question-card" class="card quiz-card">
             <img src="/img/quiz-img.jpg" class="card-img-top">
+            <div class="progress">
+              <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 25%;" >0 %</div>
+            </div>
             <div class="card-body">
               <h5 class="card-title" id="questiontext">Frage</h5>
 
@@ -53,11 +56,15 @@
             </div>
           </div>
 
-          <div id="end-card" class="card quiz-card" style="display:none;">
-            <img src="/img/gameover.jpg" class="card-img-top" alt="...">
+          <div id="end-card" class="card quiz-card width-45" style="display:none;">
+            <img src="/img/gameover.jpg" class="card-img-top big">
+            <div class="progress">
+              <div class="progress-bar" id="progress-bar-finish" role="progressbar" style="width: 100%;" >100 %</div>
+            </div>
             <div class="card-body">
-              <h5 class="card-title text-center">Das Quiz ist vorbei.</h5>
-              <p class="card-text text-center">Du hast 1 von 7 Fragen richtig beantwortet.</p>
+              <h5 class="card-title text-center">Das Quiz ist vorbei.
+              <br> Hier ist dein Ergebnis</h5>
+              <p id="number-of-right-answers" class="card-text text-center">Du hast 1 von 2 Fragen richtig beantwortet.</p>
               <a onclick="window.location.href=this" class="btn btn-dark btn-center">Neustart</a>
             </div>
           </div>

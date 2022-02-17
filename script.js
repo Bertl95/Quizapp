@@ -52,7 +52,10 @@ function getById(id){
     return document.getElementById(id);
 }
 
+let rightQuestions = 0;
 let currentQuestion = 0;
+let AUDIO_SUCCESS = new Audio('/sounds/Success.mp3');
+let AUDIO_FAIL = new Audio('/sounds/Failure.mp3');
 
 function init(){
     getById('all-questions').innerHTML = questions.length;
@@ -66,26 +69,37 @@ function showQuestion (){
         getById('answer_1').innerHTML = question['answer_1'];
         getById('answer_2').innerHTML = question['answer_2'];
         getById('answer_3').innerHTML = question['answer_3'];
-        getById('answer_4').innerHTML = question['answer_4'];               
+        getById('answer_4').innerHTML = question['answer_4']; 
+        let percent = currentQuestion / questions.length;
+        percent = Math.round(percent * 100);
+        getById('progress-bar').innerHTML = `${percent} % `;
+        getById('progress-bar').style = `width: ${percent}% `;
+        console.log(percent)              
     }else{
         getById('end-card').style = ''; 
         getById('question-card').style = 'display:none;';
+        getById('number-of-right-answers').innerHTML = `
+        Du hast <b>${rightQuestions}</b> von <b>${questions.length}</b> Fragen richtig beantwortet.
+        `;
     }
 }
-function answer(selected){  // 
+function answer(selected){   
     let question = questions[currentQuestion];
-    console.log('Selected answer is ', selected);
+    //console.log('Selected answer is ', selected);
     let selectedQuestionNumber = selected.slice(-1);
-    console.log('Selected Questionnumber is ', selectedQuestionNumber);
-    console.log('Right answer is', question ['right_answer']);
+    //console.log('Selected Questionnumber is ', selectedQuestionNumber);
+    //console.log('Right answer is', question ['right_answer']);
 
     let idOfRightAnswer = `answer_${question['right_answer']}`;
 
     if ( selectedQuestionNumber == question['right_answer']){
         getById(selected).parentNode.classList.add('bg-success');
+        AUDIO_SUCCESS.play();
+        rightQuestions++
     }else {
         getById(selected).parentNode.classList.add('bg-danger');
         getById(idOfRightAnswer).parentNode.classList.add('bg-success');
+        AUDIO_FAIL.play();
     }
     getById('next-btn').disabled = false;
 }
@@ -101,4 +115,7 @@ function resetAnswerButtons(){
     getById('answer_3').parentNode.classList.remove('bg-danger', 'bg-success');
     getById('answer_4').parentNode.classList.remove('bg-danger', 'bg-success');
     getById('next-btn').disabled = true;
+}
+function calculateProgress(){
+
 }
