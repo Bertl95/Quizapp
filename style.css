@@ -1,0 +1,27 @@
+body {
+    background-color: #212529 !important;
+}
+.card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #212529 !important;
+    min-height: 80vh;
+}
+.question-footer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #212529;
+    padding-top: 12px;
+}
+.quiz-card{
+    width: 30rem !important;
+
+}
+.quiz-answer-card:hover{
+    cursor: pointer;
+    background-color: #dee2e6;
+    border: 1px solid rgba(0,0,0,.250);
+    transition: ease-in-out 150ms;
+}
