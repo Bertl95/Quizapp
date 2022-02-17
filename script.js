@@ -48,14 +48,15 @@ let questions = [
         'right_answer' : 4
     },
 ];
-function getById(id){
-    return document.getElementById(id);
-}
 
 let rightQuestions = 0;
 let currentQuestion = 0;
 let AUDIO_SUCCESS = new Audio('/sounds/Success.mp3');
 let AUDIO_FAIL = new Audio('/sounds/Failure.mp3');
+
+function getById(id){
+    return document.getElementById(id);
+}
 
 function init(){
     getById('all-questions').innerHTML = questions.length;
@@ -63,39 +64,28 @@ function init(){
 }
 function showQuestion (){
     if (currentQuestion + 1 <= questions.length) {
-        let question = questions[currentQuestion];
+        updateNextQuestion(); 
+        updateProgress();              
+    }else{
+        showEndscreen();
+    }
+}
+function updateNextQuestion(){
+    let question = questions[currentQuestion];
         getById('current-question').innerHTML = currentQuestion + 1;
         getById('questiontext').innerHTML = question['question'];
         getById('answer_1').innerHTML = question['answer_1'];
         getById('answer_2').innerHTML = question['answer_2'];
         getById('answer_3').innerHTML = question['answer_3'];
-        getById('answer_4').innerHTML = question['answer_4']; 
-        let percent = currentQuestion / questions.length;
-        percent = Math.round(percent * 100);
-        getById('progress-bar').innerHTML = `${percent} % `;
-        getById('progress-bar').style = `width: ${percent}% `;
-        console.log(percent)              
-    }else{
-        getById('end-card').style = ''; 
-        getById('question-card').style = 'display:none;';
-        getById('number-of-right-answers').innerHTML = `
-        Du hast <b>${rightQuestions}</b> von <b>${questions.length}</b> Fragen richtig beantwortet.
-        `;
-    }
+        getById('answer_4').innerHTML = question['answer_4'];
 }
 function answer(selected){   
     let question = questions[currentQuestion];
-    //console.log('Selected answer is ', selected);
     let selectedQuestionNumber = selected.slice(-1);
-    //console.log('Selected Questionnumber is ', selectedQuestionNumber);
-    //console.log('Right answer is', question ['right_answer']);
-
     let idOfRightAnswer = `answer_${question['right_answer']}`;
 
     if ( selectedQuestionNumber == question['right_answer']){
-        getById(selected).parentNode.classList.add('bg-success');
-        AUDIO_SUCCESS.play();
-        rightQuestions++
+        rightAnswer(selected)
     }else {
         getById(selected).parentNode.classList.add('bg-danger');
         getById(idOfRightAnswer).parentNode.classList.add('bg-success');
@@ -103,11 +93,15 @@ function answer(selected){
     }
     getById('next-btn').disabled = false;
 }
+function rightAnswer(selected){
+    getById(selected).parentNode.classList.add('bg-success');
+    AUDIO_SUCCESS.play();
+    rightQuestions++
+}
 function nextQuestion(){
     resetAnswerButtons();
     currentQuestion++;
-    showQuestion();
-    
+    showQuestion();    
 }
 function resetAnswerButtons(){
     getById('answer_1').parentNode.classList.remove('bg-danger', 'bg-success');
@@ -116,6 +110,16 @@ function resetAnswerButtons(){
     getById('answer_4').parentNode.classList.remove('bg-danger', 'bg-success');
     getById('next-btn').disabled = true;
 }
-function calculateProgress(){
-
+function showEndscreen(){
+    getById('end-card').style = ''; 
+    getById('question-card').style = 'display:none;';
+    getById('number-of-right-answers').innerHTML = `
+    Du hast <b>${rightQuestions}</b> von <b>${questions.length}</b> Fragen richtig beantwortet.
+    `;
+}
+function updateProgress(){
+    let percent = currentQuestion / questions.length;
+    percent = Math.round(percent * 100); 
+    getById('progress-bar').innerHTML = `${percent} % `;
+    getById('progress-bar').style = `width: ${percent}% `;      
 }
