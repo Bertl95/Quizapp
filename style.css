@@ -29,7 +29,9 @@ body {
     color: white;
     transition: ease-in-out 300ms;
 }
-.enabled{
-    pointer-events: all !important;
-    opacity: 1 !important;
+.btn-center{
+    margin-left: 40%;
+}
+.text-center{
+    text-align: center;
 }

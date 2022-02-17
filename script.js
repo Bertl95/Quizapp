@@ -68,7 +68,8 @@ function showQuestion (){
         getById('answer_3').innerHTML = question['answer_3'];
         getById('answer_4').innerHTML = question['answer_4'];               
     }else{
-        alert('Das Quiz ist vorbei. Bitte die Seite neu laden um neu zu Starten!')
+        getById('end-card').style = ''; 
+        getById('question-card').style = 'display:none;';
     }
 }
 function answer(selected){  // 
@@ -92,17 +93,7 @@ function nextQuestion(){
     resetAnswerButtons();
     currentQuestion++;
     showQuestion();
-    if (currentQuestion + 1 <= questions.length) {
-        getById('current-question').innerHTML = currentQuestion + 1;
-        let question = questions[currentQuestion];
-        getById('questiontext').innerHTML = question['question'];
-        getById('answer_1').innerHTML = question['answer_1'];
-        getById('answer_2').innerHTML = question['answer_2'];
-        getById('answer_3').innerHTML = question['answer_3'];
-        getById('answer_4').innerHTML = question['answer_4'];
-    }else{
-        alert('Das Quiz ist vorbei. Bitte die Seite neu laden um neu zu Starten!')
-    }
+    
 }
 function resetAnswerButtons(){
     getById('answer_1').parentNode.classList.remove('bg-danger', 'bg-success');

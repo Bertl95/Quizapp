@@ -14,8 +14,8 @@
 </head>
 <body onload="init()">
 
-      <div class="card-container">
-        <div class="card quiz-card" style="width: 18rem;">
+      <div id="card-container" class="card-container">
+        <div id="question-card" class="card quiz-card">
             <img src="/img/quiz-img.jpg" class="card-img-top">
             <div class="card-body">
               <h5 class="card-title" id="questiontext">Frage</h5>
@@ -53,6 +53,16 @@
             </div>
           </div>
 
+          <div id="end-card" class="card quiz-card" style="display:none;">
+            <img src="/img/gameover.jpg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-center">Das Quiz ist vorbei.</h5>
+              <p class="card-text text-center">Du hast 1 von 7 Fragen richtig beantwortet.</p>
+              <a onclick="window.location.href=this" class="btn btn-dark btn-center">Neustart</a>
+            </div>
+          </div>
+
       </div>
+      
 </body>
 </html>
