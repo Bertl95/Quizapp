@@ -53,6 +53,7 @@ let rightQuestions = 0;
 let currentQuestion = 0;
 let AUDIO_SUCCESS = new Audio('sounds/Success.mp3');
 let AUDIO_FAIL = new Audio('sounds/Failure.mp3');
+let AUDIO_FINISH = new Audio('sounds/Finish.mp3');
 
 function getById(id){
     return document.getElementById(id);
@@ -83,14 +84,15 @@ function answer(selected){
     let question = questions[currentQuestion];
     let selectedQuestionNumber = selected.slice(-1);
     let idOfRightAnswer = `answer_${question['right_answer']}`;
-
     if ( selectedQuestionNumber == question['right_answer']){
-        rightAnswer(selected)
+        rightAnswer(selected);
     }else {
-        getById(selected).parentNode.classList.add('bg-danger');
-        getById(idOfRightAnswer).parentNode.classList.add('bg-success');
-        AUDIO_FAIL.play();
+        wrongAnswer(selected, idOfRightAnswer);
     }
+    getById('answer_1').parentNode.classList.add('disable');
+    getById('answer_2').parentNode.classList.add('disable');
+    getById('answer_3').parentNode.classList.add('disable');
+    getById('answer_4').parentNode.classList.add('disable');
     getById('next-btn').disabled = false;
 }
 function rightAnswer(selected){
@@ -98,20 +100,26 @@ function rightAnswer(selected){
     AUDIO_SUCCESS.play();
     rightQuestions++
 }
+function wrongAnswer(selected, idOfRightAnswer){
+    getById(selected).parentNode.classList.add('bg-danger');
+        getById(idOfRightAnswer).parentNode.classList.add('bg-success');
+        AUDIO_FAIL.play();
+}
 function nextQuestion(){
     resetAnswerButtons();
     currentQuestion++;
     showQuestion();    
 }
 function resetAnswerButtons(){
-    getById('answer_1').parentNode.classList.remove('bg-danger', 'bg-success');
-    getById('answer_2').parentNode.classList.remove('bg-danger', 'bg-success');
-    getById('answer_3').parentNode.classList.remove('bg-danger', 'bg-success');
-    getById('answer_4').parentNode.classList.remove('bg-danger', 'bg-success');
+    getById('answer_1').parentNode.classList.remove('disable', 'bg-danger', 'bg-success');
+    getById('answer_2').parentNode.classList.remove('disable', 'bg-danger', 'bg-success');
+    getById('answer_3').parentNode.classList.remove('disable', 'bg-danger', 'bg-success');
+    getById('answer_4').parentNode.classList.remove('disable', 'bg-danger', 'bg-success');
     getById('next-btn').disabled = true;
 }
 function showEndscreen(){
     getById('end-card').style = ''; 
+    AUDIO_FINISH.play();
     getById('question-card').style = 'display:none;';
     getById('number-of-right-answers').innerHTML = `
     Du hast <b>${rightQuestions}</b> von <b>${questions.length}</b> Fragen richtig beantwortet.

@@ -46,3 +46,6 @@ body {
 .progress{
     border-radius: 0 !important;
 }
+.disable{
+    pointer-events: none;
+}
