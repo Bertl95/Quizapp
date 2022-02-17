@@ -51,8 +51,8 @@ let questions = [
 
 let rightQuestions = 0;
 let currentQuestion = 0;
-let AUDIO_SUCCESS = new Audio('/sounds/Success.mp3');
-let AUDIO_FAIL = new Audio('/sounds/Failure.mp3');
+let AUDIO_SUCCESS = new Audio('sounds/Success.mp3');
+let AUDIO_FAIL = new Audio('sounds/Failure.mp3');
 
 function getById(id){
     return document.getElementById(id);
