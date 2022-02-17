@@ -59,12 +59,17 @@ function init(){
     showQuestion();
 }
 function showQuestion (){
-    let question = questions[currentQuestion];
-    getById('questiontext').innerHTML = question['question'];
-    getById('answer_1').innerHTML = question['answer_1'];
-    getById('answer_2').innerHTML = question['answer_2'];
-    getById('answer_3').innerHTML = question['answer_3'];
-    getById('answer_4').innerHTML = question['answer_4'];
+    if (currentQuestion + 1 <= questions.length) {
+        let question = questions[currentQuestion];
+        getById('current-question').innerHTML = currentQuestion + 1;
+        getById('questiontext').innerHTML = question['question'];
+        getById('answer_1').innerHTML = question['answer_1'];
+        getById('answer_2').innerHTML = question['answer_2'];
+        getById('answer_3').innerHTML = question['answer_3'];
+        getById('answer_4').innerHTML = question['answer_4'];               
+    }else{
+        alert('Das Quiz ist vorbei. Bitte die Seite neu laden um neu zu Starten!')
+    }
 }
 function answer(selected){  // 
     let question = questions[currentQuestion];
@@ -73,9 +78,36 @@ function answer(selected){  //
     console.log('Selected Questionnumber is ', selectedQuestionNumber);
     console.log('Right answer is', question ['right_answer']);
 
+    let idOfRightAnswer = `answer_${question['right_answer']}`;
+
     if ( selectedQuestionNumber == question['right_answer']){
-        console.log('Right');
+        getById(selected).parentNode.classList.add('bg-success');
     }else {
-        console.log('Wrong');
+        getById(selected).parentNode.classList.add('bg-danger');
+        getById(idOfRightAnswer).parentNode.classList.add('bg-success');
     }
+    getById('next-btn').disabled = false;
+}
+function nextQuestion(){
+    resetAnswerButtons();
+    currentQuestion++;
+    showQuestion();
+    if (currentQuestion + 1 <= questions.length) {
+        getById('current-question').innerHTML = currentQuestion + 1;
+        let question = questions[currentQuestion];
+        getById('questiontext').innerHTML = question['question'];
+        getById('answer_1').innerHTML = question['answer_1'];
+        getById('answer_2').innerHTML = question['answer_2'];
+        getById('answer_3').innerHTML = question['answer_3'];
+        getById('answer_4').innerHTML = question['answer_4'];
+    }else{
+        alert('Das Quiz ist vorbei. Bitte die Seite neu laden um neu zu Starten!')
+    }
+}
+function resetAnswerButtons(){
+    getById('answer_1').parentNode.classList.remove('bg-danger', 'bg-success');
+    getById('answer_2').parentNode.classList.remove('bg-danger', 'bg-success');
+    getById('answer_3').parentNode.classList.remove('bg-danger', 'bg-success');
+    getById('answer_4').parentNode.classList.remove('bg-danger', 'bg-success');
+    getById('next-btn').disabled = true;
 }

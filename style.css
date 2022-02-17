@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #212529 !important;
-    min-height: 80vh;
+    min-height: 100vh;
 }
 .question-footer{
     display: flex;
@@ -24,4 +24,12 @@ body {
     background-color: #dee2e6;
     border: 1px solid rgba(0,0,0,.250);
     transition: ease-in-out 150ms;
+}
+.bg-success, .bg-danger{
+    color: white;
+    transition: ease-in-out 300ms;
+}
+.enabled{
+    pointer-events: all !important;
+    opacity: 1 !important;
 }
